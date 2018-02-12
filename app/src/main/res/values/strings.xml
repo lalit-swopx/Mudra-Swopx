@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Mudra</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="forgot_password"><u>forgot password</u></string>
+    <string name="not_registered_yet_sign_up">Not registered yet? Sign up !</string>
+    <string name="entr_pass">Enter password.</string>
+    <string name="entr_user">Enter username.</string>
+    <string name="email">Email</string>
+    <string name="phone_no">Phone No.</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="entr_email">Enter email address.</string>
+    <string name="valid_email">Enter valid email address.</string>
+    <string name="psswrd_mathces">Confirm password does not mathes the password.</string>
+    <string name="internet_connection">No internet connection.</string>
+    <string name="i_am_primarily_a">I am primarily a...</string>
+</resources>

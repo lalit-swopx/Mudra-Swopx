@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBg"
+    android:fillViewport="true"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:src="@drawable/login_logo"
+        />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/_10sdp"
+        android:scrollbars="none"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:background="@color/colorBg"
+        >
+        <LinearLayout
+            android:id="@+id/middle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_below="@+id/logo"
+            android:layout_marginTop="@dimen/_40sdp"
+            android:orientation="vertical">
+
+            <com.mudra.custom_fonts.TypefaceTextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="@string/i_am_primarily_a"
+                android:background="@android:color/transparent"
+                android:textSize="@dimen/_12sdp"
+                android:padding="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:textColor="@color/colorGray"
+                app:typeface_custom="CenturyGothicBold.ttf"/>
+
+
+            <LinearLayout
+                android:id="@+id/whole_sale"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:padding="@dimen/_10sdp"
+                android:gravity="center"
+                android:background="@color/colorLightRed">
+                <com.mudra.custom_fonts.TypefaceTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Whole Sale Dealer"
+                    android:background="@android:color/transparent"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/colorWhite"
+                    app:typeface_custom="CenturyGothicBold.ttf"/></LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/hospital"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:padding="@dimen/_10sdp"
+                android:gravity="center"
+                android:background="@color/colorLightRed">
+                <com.mudra.custom_fonts.TypefaceTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hospital"
+                    android:background="@android:color/transparent"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/colorWhite"
+                    app:typeface_custom="CenturyGothicBold.ttf"/></LinearLayout>
+            <LinearLayout
+                android:id="@+id/doctor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:padding="@dimen/_10sdp"
+                android:gravity="center"
+                android:background="@color/colorLightRed">
+                <com.mudra.custom_fonts.TypefaceTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Doctor"
+                    android:background="@android:color/transparent"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/colorWhite"
+                    app:typeface_custom="CenturyGothicBold.ttf"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/mr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:padding="@dimen/_10sdp"
+                android:gravity="center"
+                android:background="@color/colorLightRed">
+                <com.mudra.custom_fonts.TypefaceTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MR"
+                    android:background="@android:color/transparent"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/colorWhite"
+                    app:typeface_custom="CenturyGothicBold.ttf"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>
