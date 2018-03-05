@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/colorBg"
     android:fillViewport="true"
 
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical">
+
     <ImageView
         android:id="@+id/logo"
         android:layout_width="wrap_content"
@@ -15,188 +16,230 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/_10sdp"
-        android:src="@drawable/login_logo"
-        />
+        android:src="@drawable/login_logo" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/_10sdp"
-        android:scrollbars="none"
         android:layout_gravity="center_horizontal|center_vertical"
         android:background="@color/colorBg"
-        >
-            <LinearLayout
-                android:id="@+id/middle"
+        android:padding="@dimen/_10sdp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/middle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/logo"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_40sdp"
+            android:orientation="vertical">
+
+            <com.mudra.custom_fonts.TypefaceTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/_20sdp"
-                android:layout_marginRight="@dimen/_20sdp"
-                android:layout_below="@+id/logo"
-                android:layout_marginTop="@dimen/_40sdp"
-                android:orientation="vertical">
-                <com.mudra.custom_fonts.TypefaceTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/username"
-                    android:padding="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:textSize="@dimen/_12sdp"
-                    android:textColor="@color/colorRed"
-                    app:typeface_custom="CenturyGothicBold.ttf"/>
-                <com.mudra.custom_fonts.TypefaceEditText
-                    android:id="@+id/name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/username"
-                    android:background="@android:color/transparent"
-                    android:textSize="@dimen/_12sdp"
-                    android:padding="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:textColor="@color/colorGray"
-                    app:typeface_custom="CenturyGothicBold.ttf"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.1sp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:background="@color/colorGray"/>
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:padding="@dimen/_5sdp"
+                android:text="@string/username"
+                android:textColor="@color/colorRed"
+                android:textSize="@dimen/_12sdp"
+                app:typeface_custom="CenturyGothicBold.ttf" />
 
-                <com.mudra.custom_fonts.TypefaceTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/email"
-                    android:padding="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:textSize="@dimen/_12sdp"
-                    android:textColor="@color/colorRed"
-                    app:typeface_custom="CenturyGothicBold.ttf"/>
+            <com.mudra.custom_fonts.TypefaceEditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@android:color/transparent"
+                android:hint="@string/username"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@color/colorGray"
+                android:textSize="@dimen/_12sdp"
+                app:typeface_custom="CenturyGothicBold.ttf" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1sp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:background="@color/colorGray" />
+
+            <com.mudra.custom_fonts.TypefaceTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:padding="@dimen/_5sdp"
+                android:text="@string/email"
+                android:textColor="@color/colorRed"
+                android:textSize="@dimen/_12sdp"
+                app:typeface_custom="CenturyGothicBold.ttf" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
                 <com.mudra.custom_fonts.TypefaceEditText
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/email"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_toLeftOf="@+id/emailVerify"
                     android:background="@android:color/transparent"
-                    android:textSize="@dimen/_12sdp"
-                    android:padding="@dimen/_5sdp"
+                    android:hint="@string/email"
                     android:inputType="textEmailAddress"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:textColor="@color/colorGray"
-                    app:typeface_custom="CenturyGothicBold.ttf"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.1sp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:background="@color/colorGray"/>
-
-                <com.mudra.custom_fonts.TypefaceTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/phone_no"
                     android:padding="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:textColor="@color/colorGray"
                     android:textSize="@dimen/_12sdp"
-                    android:textColor="@color/colorRed"
-                    app:typeface_custom="CenturyGothicBold.ttf"/>
+                    app:typeface_custom="CenturyGothicBold.ttf" />
+
+                <ImageView
+                    android:id="@+id/emailVerify"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_info_icon"
+                    android:padding="@dimen/_5sdp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1sp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:background="@color/colorGray" />
+
+            <com.mudra.custom_fonts.TypefaceTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:padding="@dimen/_5sdp"
+                android:text="@string/phone_no"
+                android:textColor="@color/colorRed"
+                android:textSize="@dimen/_12sdp"
+                app:typeface_custom="CenturyGothicBold.ttf" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
                 <com.mudra.custom_fonts.TypefaceEditText
                     android:id="@+id/phn_no"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@android:color/transparent"
                     android:hint="@string/phone_no"
-                    android:background="@android:color/transparent"
-                    android:textSize="@dimen/_12sdp"
-                    android:padding="@dimen/_5sdp"
                     android:inputType="number"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:padding="@dimen/_5sdp"
                     android:textColor="@color/colorGray"
-                    app:typeface_custom="CenturyGothicBold.ttf"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.1sp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:background="@color/colorGray"/>
+                    android:textSize="@dimen/_12sdp"
+                    app:typeface_custom="CenturyGothicBold.ttf" />
+
+                <ImageView
+                    android:id="@+id/phoneVerify"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_info_icon"
+                    android:padding="@dimen/_5sdp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1sp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:background="@color/colorGray" />
+
+            <com.mudra.custom_fonts.TypefaceTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:padding="@dimen/_5sdp"
+                android:text="@string/password"
+                android:textColor="@color/colorRed"
+                android:textSize="@dimen/_12sdp"
+                app:typeface_custom="CenturyGothicBold.ttf" />
+
+            <com.mudra.custom_fonts.TypefaceEditText
+                android:id="@+id/passwrd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@android:color/transparent"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@color/colorGray"
+                android:textSize="@dimen/_12sdp"
+                app:typeface_custom="CenturyGothicBold.ttf" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1sp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:background="@color/colorGray" />
+
+            <com.mudra.custom_fonts.TypefaceTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:padding="@dimen/_5sdp"
+                android:text="@string/confirm_password"
+                android:textColor="@color/colorRed"
+                android:textSize="@dimen/_12sdp"
+                app:typeface_custom="CenturyGothicBold.ttf" />
+
+            <com.mudra.custom_fonts.TypefaceEditText
+                android:id="@+id/confirm_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@android:color/transparent"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@color/colorGray"
+                android:textSize="@dimen/_12sdp"
+                app:typeface_custom="CenturyGothicBold.ttf" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1sp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:background="@color/colorGray" />
+
+            <LinearLayout
+                android:id="@+id/registred"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_80sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:background="@color/colorLightRed"
+                android:gravity="center"
+                android:padding="@dimen/_10sdp">
 
                 <com.mudra.custom_fonts.TypefaceTextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/password"
-                    android:padding="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:textSize="@dimen/_12sdp"
-                    android:textColor="@color/colorRed"
-                    app:typeface_custom="CenturyGothicBold.ttf"/>
-                <com.mudra.custom_fonts.TypefaceEditText
-                    android:id="@+id/passwrd"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/password"
                     android:background="@android:color/transparent"
+                    android:text="Register"
+                    android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_12sdp"
-                    android:padding="@dimen/_5sdp"
-                    android:inputType="textPassword"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:textColor="@color/colorGray"
-                    app:typeface_custom="CenturyGothicBold.ttf"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.1sp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:background="@color/colorGray"/>
-
-                <com.mudra.custom_fonts.TypefaceTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/confirm_password"
-                    android:padding="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:textSize="@dimen/_12sdp"
-                    android:textColor="@color/colorRed"
-                    app:typeface_custom="CenturyGothicBold.ttf"/>
-                <com.mudra.custom_fonts.TypefaceEditText
-                    android:id="@+id/confirm_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/password"
-                    android:background="@android:color/transparent"
-                    android:textSize="@dimen/_12sdp"
-                    android:padding="@dimen/_5sdp"
-                    android:inputType="textPassword"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:textColor="@color/colorGray"
-                    app:typeface_custom="CenturyGothicBold.ttf"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.1sp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:background="@color/colorGray"/>
-
-                <LinearLayout
-                    android:id="@+id/registred"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:layout_marginBottom="@dimen/_80sdp"
-                    android:padding="@dimen/_10sdp"
-                    android:gravity="center"
-                    android:background="@color/colorLightRed">
-                    <com.mudra.custom_fonts.TypefaceTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Register"
-                        android:background="@android:color/transparent"
-                        android:textSize="@dimen/_12sdp"
-                        android:textColor="@color/colorWhite"
-                        app:typeface_custom="CenturyGothicBold.ttf"/></LinearLayout>
-
+                    app:typeface_custom="CenturyGothicBold.ttf" />
             </LinearLayout>
+
+        </LinearLayout>
     </ScrollView>
 </LinearLayout>

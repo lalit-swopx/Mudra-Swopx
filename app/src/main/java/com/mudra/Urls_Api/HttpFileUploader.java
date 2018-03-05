@@ -20,7 +20,7 @@ public class HttpFileUploader implements Runnable {
     String fileName;
     String Tag = "HTTPREQUEST";
 
-    public HttpFileUploader(String urlString, String mediaType, String fileName,String type) {
+    public HttpFileUploader(String urlString, String mediaType, String fileName, String type) {
 
         try {
             connectURL = new URL(urlString);
@@ -43,9 +43,6 @@ public class HttpFileUploader implements Runnable {
     private static String s;
 
 
-
-
-
     void thirdTry() {
         String lineEnd = "\r\n";
         String twoHyphens = "--";
@@ -60,11 +57,11 @@ public class HttpFileUploader implements Runnable {
             conn.setUseCaches(false);
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Connection", "Keep-Alive");
-            conn.setRequestProperty("Content-Type",	"multipart/form-data;boundary=" + boundary);
+            conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
 
             DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
             dos.writeBytes(twoHyphens + boundary + lineEnd);
-            dos.writeBytes("Content-Disposition: form-data; name=\"uploadedfile\"; "+ mediaType+ "\""+ 2+ "\";"+"filename=\"" + fileName + "\"" + lineEnd);
+            dos.writeBytes("Content-Disposition: form-data; name=\"uploadedfile\"; " + mediaType + "\"" + 2 + "\";" + "filename=\"" + fileName + "\"" + lineEnd);
             dos.writeBytes(lineEnd);
 
             Log.e(Tag, "Headers are written");
@@ -113,7 +110,7 @@ public class HttpFileUploader implements Runnable {
 
     public static String updateCall() {
         String st = s;
-        s="";
+        s = "";
         return st;
     }
 }

@@ -76,7 +76,7 @@ public abstract class PostImage extends AsyncTask<String, Void, String> {
         FileInputStream fis;
         try {
             fis = new FileInputStream(f);
-            Constant.Log("File Path====","pick_Request===4 "+f);
+            Constant.Log("File Path====", "pick_Request===4 " + f);
             HttpFileUploader htfu = new HttpFileUploader(Url, " image", FileName, Type);
             htfu.doStart(fis);
             response = htfu.updateCall();

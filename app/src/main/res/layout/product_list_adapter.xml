@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/imageLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/detailLayout"
+        android:layout_alignTop="@+id/detailLayout">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/_5sdp"
+            android:scaleType="fitXY" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/checkedLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageLayout"
+        android:layout_alignLeft="@+id/imageLayout"
+        android:layout_alignRight="@+id/imageLayout"
+        android:layout_alignTop="@+id/imageLayout"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/imageBlur"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_centerInParent="true"
+            android:alpha="0.6"
+            android:background="@color/black"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/ic_check_box_icon" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/detailLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/imageLayout"
+        android:gravity="right"
+        android:orientation="vertical"
+        android:padding="@dimen/_5sdp">
+
+        <com.mudra.custom_fonts.TypefaceTextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="ANAWIN  0.5%\r\nBUPIVACAINE HYDROCHLORIDE INJECTION 0.5%"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10sdp"
+            android:textStyle="bold"
+            app:typeface_custom="CenturyGothicBold.ttf" />
+
+        <com.mudra.custom_fonts.TypefaceTextView
+            android:id="@+id/cname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="ANAWIN  0.5%\r\nBUPIVACAINE HYDROCHLORIDE INJECTION 0.5%"
+            android:textColor="@color/colorGray"
+            android:textSize="@dimen/_8sdp"
+            app:typeface_custom="CenturyGothicBold.ttf" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/priceLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.mudra.custom_fonts.TypefaceTextView
+                    android:id="@+id/price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:text="Price : 100"
+                    android:textColor="@color/colorGray"
+                    android:textSize="@dimen/_8sdp"
+                    app:typeface_custom="CenturyGothicBold.ttf" />
+
+                <com.mudra.custom_fonts.TypefaceTextView
+                    android:id="@+id/status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/price"
+                    android:layout_gravity="left"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:text="Price : 100"
+                    android:textColor="@color/colorGray"
+                    android:textSize="@dimen/_8sdp"
+                    app:typeface_custom="CenturyGothicBold.ttf" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/quanLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true">
+
+                <ImageView
+                    android:id="@+id/remove"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/quantity"
+                    android:background="@drawable/ic_remove_circle_quan" />
+
+                <com.mudra.custom_fonts.TypefaceEditText
+                    android:id="@+id/quantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:layout_toLeftOf="@+id/add"
+                    android:digits="0123456789"
+                    android:inputType="number"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_10sdp"
+                    android:text="1"
+                    android:textColor="@color/colorGray"
+                    android:textSize="@dimen/_15sdp"
+                    app:typeface_custom="CenturyGothicBold.ttf" />
+
+                <ImageView
+                    android:id="@+id/add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_add_circle_quan" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1sp"
+        android:layout_below="@+id/detailLayout"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:background="@color/colorGray" />
+
+</RelativeLayout>

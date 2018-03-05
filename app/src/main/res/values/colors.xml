@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimaryDark">#efecec</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorBg">#efecec</color>
     <color name="colorBlue">#0000ff</color>
@@ -9,4 +9,9 @@
     <color name="colorLightRed">#e14b54</color>
     <color name="colorGray">#6f6e6e</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="green">#008000</color>
+    <color name="black">#000000</color>
+    <color name="cardbg">#F0F0F0</color>
+
+
 </resources>

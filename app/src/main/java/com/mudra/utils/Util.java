@@ -2,9 +2,14 @@ package com.mudra.utils;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -15,16 +20,30 @@ import android.media.MediaScannerConnection;
 import android.media.ThumbnailUtils;
 import android.net.ConnectivityManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
+import android.provider.Settings;
+/*import android.util.Log;*/
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
-
+import com.google.gson.Gson;
 import com.mudra.R;
+import com.mudra.Urls_Api.Url_Links;
+import com.mudra.model.DashboardResponse;
+import com.mudra.model.ImageUploadResponse;
+import com.mudra.model.LoginRequest;
+import com.mudra.model.LoginResponse;
+import com.mudra.model.OrderListResponse;
+import com.mudra.model.OrderRequest;
+import com.mudra.model.ProductListResponse;
+import com.mudra.model.RegisterResponse;
+import com.mudra.registration.Home;
+import com.mudra.registration.Login;
+import com.mudra.registration.Registration;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -32,6 +51,14 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 
 public class Util {
@@ -48,7 +75,7 @@ public class Util {
         if (!myDir.isDirectory())
             myDir.mkdirs();
 
-        String fname = generateUniqueFileName("image") + ".jpg";
+        String fname = generateUniqueFileName("image_swopx") + ".jpg";
         File file = new File(myDir, fname);
         if (file.exists()) file.delete();
         try {
@@ -62,8 +89,61 @@ public class Util {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            final Intent scanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            final Uri contentUri = Uri.fromFile(myDir);
+            scanIntent.setData(contentUri);
+            context.sendBroadcast(scanIntent);
+        } else {
+            final Intent intent = new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory()));
+            context.sendBroadcast(intent);
+        }
     }
 
+    public static String imageingallery(Context context, Bitmap finalBitmap) {
+        String root = Environment.getExternalStorageDirectory().toString();
+        //Log.e("root", "root : " + root);
+        /*File myDir = new File(root + "/SWOPX");
+        myDir.mkdirs();*/
+
+        File myDir = new File(context.getExternalFilesDir(
+                Environment.DIRECTORY_PICTURES), "SWOPX");
+        if (!myDir.mkdirs()) {
+            //Log.e("myDir", "Directory not created");
+        }
+
+        Random generator = new Random();
+        int n = 10000;
+        n = generator.nextInt(n);
+        String fname = "Image-" + n + ".jpg";
+        File file = new File(myDir, fname);
+        //Log.i("here tag", "" + file);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            final Intent scanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            final Uri contentUri = Uri.fromFile(myDir);
+            scanIntent.setData(contentUri);
+            context.sendBroadcast(scanIntent);
+        } else {
+            final Intent intent = new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory()));
+            context.sendBroadcast(intent);
+        }
+
+        if (file.exists())
+            file.delete();
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //Log.e("here path", " is : " + file);
+        return fname;
+    }
 
     public static String generateUniqueFileName(String fileName) {
         String filename = fileName;
@@ -77,8 +157,8 @@ public class Util {
                 new String[]{path}, null,
                 new MediaScannerConnection.OnScanCompletedListener() {
                     public void onScanCompleted(String path, Uri uri) {
-                        Log.i("ExternalStorage", "Scanned " + path + ":");
-                        Log.i("ExternalStorage", "-> uri=" + uri);
+                        //Log.i("ExternalStorage", "Scanned " + path + ":");
+                        //Log.i("ExternalStorage", "-> uri=" + uri);
                         imagePath = path;
 
                     }
@@ -110,7 +190,7 @@ public class Util {
         try {
             imageFile = createImageFile();
         } catch (IOException e) {
-            Log.e("Exception", "" + e);
+            //Log.e("Exception", "" + e);
             e.printStackTrace();
         }
         if (cameraId > 0) {
@@ -488,5 +568,455 @@ public class Util {
         String DATE_FORMAT = "dd:MM:yyyy";
 
         return new SimpleDateFormat(DATE_FORMAT).format(timestamp * 1000);
+    }
+
+    public static void LoginRequest(final Context context, final String method, final String data, final ProgressDialog mProgressDialog) {
+        try {
+            final LoginRequest customerListRequest = new Gson().fromJson(data, LoginRequest.class);
+
+            EndPointInterface git = ApiClient.getClient().create(EndPointInterface.class);
+            //Call<DashboardResponse> call = git.DashboardData("" + AppUrl.BASE_URL_App + "getDashboardDetail/1");
+            Call<LoginResponse> call = git.LoginRequest("" + Url_Links.Base_Url + "login", customerListRequest);
+            call.enqueue(new Callback<LoginResponse>() {
+                @Override
+                public void onResponse(Call<LoginResponse> call, retrofit2.Response<LoginResponse> response) {
+
+                    //Log.e("resposne", "is : " + new Gson().toJson(response.body()).toString());
+                    if (mProgressDialog.isShowing())
+                        mProgressDialog.dismiss();
+
+                    if (response.body().getResult().equalsIgnoreCase("404")) {
+
+                        new AlertDialog.Builder(context)
+                                .setTitle("Confirmation")
+                                .setMessage(response.body().getMsg())
+                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                                    }
+                                })
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                                        final ProgressDialog mProgressDialog = new ProgressDialog(context);
+                                        mProgressDialog.setIndeterminate(true);
+                                        mProgressDialog.setMessage("Loading...");
+                                        mProgressDialog.show();
+
+                                        LoginRequest customerListRequest = new Gson().fromJson(data, LoginRequest.class);
+                                        customerListRequest.setFlag("1");
+
+                                        Util.LoginRequest(context, "login", new Gson().toJson(customerListRequest).toString(), mProgressDialog);
+                                    }
+                                }).show();
+                    } else {
+                        Util.setLoginData(context, new Gson().toJson(response.body()).toString());
+                        //Log.e("response", "success : " + new Gson().toJson(response.body()).toString());
+
+                        Util.DashboardBrand(context, "dashboard", "", mProgressDialog);
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<LoginResponse> call, Throwable t) {
+                    //Log.e("response", "error ");
+                    if (mProgressDialog.isShowing())
+                        mProgressDialog.dismiss();
+
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static void RegisterRequest(final Context context, final String method, final String data, final ProgressDialog mProgressDialog) {
+        try {
+            LoginRequest customerListRequest = new Gson().fromJson(data, LoginRequest.class);
+
+            EndPointInterface git = ApiClient.getClient().create(EndPointInterface.class);
+            //Call<DashboardResponse> call = git.DashboardData("" + AppUrl.BASE_URL_App + "getDashboardDetail/1");
+            Call<RegisterResponse> call = git.RegisterRequest("" + Url_Links.Base_Url + "registeruser", customerListRequest);
+            call.enqueue(new Callback<RegisterResponse>() {
+                @Override
+                public void onResponse(Call<RegisterResponse> call, retrofit2.Response<RegisterResponse> response) {
+
+                    if (mProgressDialog.isShowing())
+                        mProgressDialog.dismiss();
+
+                    Util.setLoginData(context, new Gson().toJson(response.body()).toString());
+                    // Log.e("response", "success : " + new Gson().toJson(response.body()).toString());
+                    Util.DashboardBrand(context, "dashboard", "", mProgressDialog);
+                }
+
+                @Override
+                public void onFailure(Call<RegisterResponse> call, Throwable t) {
+                    //Log.e("response", "error ");
+                    if (mProgressDialog.isShowing())
+                        mProgressDialog.dismiss();
+
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void UpdateProfile(final Context context, final String method, final String data, final ProgressDialog mProgressDialog) {
+        try {
+            LoginRequest customerListRequest = new Gson().fromJson(data, LoginRequest.class);
+
+            // Log.e("response", "success : " + data);
+
+            EndPointInterface git = ApiClient.getClient().create(EndPointInterface.class);
+            //Call<DashboardResponse> call = git.DashboardData("" + AppUrl.BASE_URL_App + "getDashboardDetail/1");
+            Call<LoginResponse> call = git.UpdateProfile("" + Url_Links.Base_Url + "update-profile", customerListRequest);
+            call.enqueue(new Callback<LoginResponse>() {
+                @Override
+                public void onResponse(Call<LoginResponse> call, retrofit2.Response<LoginResponse> response) {
+
+                    if (mProgressDialog.isShowing())
+                        mProgressDialog.dismiss();
+
+                    Util.setLoginData(context, new Gson().toJson(response.body()).toString());
+                    Constant.ToastShort(context, new Gson().toJson(response.body().getMsg()).toString());
+
+                    //Log.e("response", "success : " + new Gson().toJson(response.body()).toString());
+                }
+
+                @Override
+                public void onFailure(Call<LoginResponse> call, Throwable t) {
+                    // Log.e("response", "error ");
+                    if (mProgressDialog.isShowing())
+                        mProgressDialog.dismiss();
+
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void ProductList(final Context context, final String method, final String data, final ProgressDialog mProgressDialog, final String from) {
+        try {
+
+            EndPointInterface git = ApiClient.getClient().create(EndPointInterface.class);
+            //Call<DashboardResponse> call = git.DashboardData("" + AppUrl.BASE_URL_App + "getDashboardDetail/1");
+            Call<ProductListResponse> call = git.ProductList("" + Url_Links.Base_Url + method);
+            call.enqueue(new Callback<ProductListResponse>() {
+                @Override
+                public void onResponse(Call<ProductListResponse> call, retrofit2.Response<ProductListResponse> response) {
+
+                    if (mProgressDialog.isShowing())
+                        mProgressDialog.dismiss();
+                    //Log.e("response", "is: " + new Gson().toJson(response.body()).toString());
+
+                    Util.setProduct(context, new Gson().toJson(response.body()).toString());
+
+                    if (from.equalsIgnoreCase("favourite"))
+                        ((Home) context).Favourite("");
+                    else
+                        ((Home) context).Search("");
+                }
+
+                @Override
+                public void onFailure(Call<ProductListResponse> call, Throwable t) {
+                    // Log.e("response", "error ");
+                    if (mProgressDialog.isShowing())
+                        mProgressDialog.dismiss();
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void OrderList(final Context context, final String method, final String data, final ProgressDialog mProgressDialog, final String from) {
+        try {
+
+            String loginData = Util.getLoginData(context);
+            LoginResponse loginResponse = new Gson().fromJson(loginData, LoginResponse.class);
+
+            EndPointInterface git = ApiClient.getClient().create(EndPointInterface.class);
+            //Call<DashboardResponse> call = git.DashboardData("" + AppUrl.BASE_URL_App + "getDashboardDetail/1");
+            Call<OrderListResponse> call = git.OrderList("" + Url_Links.Base_Url + method + "/" + loginResponse.getClient_detail().getId());
+            call.enqueue(new Callback<OrderListResponse>() {
+                @Override
+                public void onResponse(Call<OrderListResponse> call, retrofit2.Response<OrderListResponse> response) {
+
+                    if (mProgressDialog.isShowing())
+                        mProgressDialog.dismiss();
+                    //Log.e("response", "is: " + new Gson().toJson(response.body()).toString());
+
+                    ((Home) context).Order(new Gson().toJson(response.body()).toString());
+                }
+
+                @Override
+                public void onFailure(Call<OrderListResponse> call, Throwable t) {
+                    //Log.e("response", "error ");
+                    if (mProgressDialog.isShowing())
+                        mProgressDialog.dismiss();
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static void DashboardBrand(final Context context, final String method, final String data, final ProgressDialog mProgressDialog) {
+        try {
+
+            EndPointInterface git = ApiClient.getClient().create(EndPointInterface.class);
+            //Call<DashboardResponse> call = git.DashboardData("" + AppUrl.BASE_URL_App + "getDashboardDetail/1");
+            Call<DashboardResponse> call = git.DashboardBrand("" + Url_Links.Base_Url + "dashboard");
+            call.enqueue(new Callback<DashboardResponse>() {
+                @Override
+                public void onResponse(Call<DashboardResponse> call, retrofit2.Response<DashboardResponse> response) {
+
+                    if (mProgressDialog.isShowing())
+                        mProgressDialog.dismiss();
+
+                    Util.setCartItem(context, "");
+                    Util.setProductToCart(context, "");
+                    Util.setDashboardBrand(context, new Gson().toJson(response.body()).toString());
+
+                    Intent homeIntent = new Intent(context, Home.class);
+                    homeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    context.startActivity(homeIntent);
+                }
+
+                @Override
+                public void onFailure(Call<DashboardResponse> call, Throwable t) {
+                    //Log.e("response", "error ");
+                    if (mProgressDialog.isShowing())
+                        mProgressDialog.dismiss();
+
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static void ForgotPassword(final Context context, final String method, final String data, final ProgressDialog mProgressDialog, final Dialog dialog) {
+        try {
+
+            EndPointInterface git = ApiClient.getClient().create(EndPointInterface.class);
+            //Call<DashboardResponse> call = git.DashboardData("" + AppUrl.BASE_URL_App + "getDashboardDetail/1");
+            Call<ProductListResponse> call = git.ForgotPassword("" + Url_Links.Base_Url + "forget-password/" + data);
+            call.enqueue(new Callback<ProductListResponse>() {
+                @Override
+                public void onResponse(Call<ProductListResponse> call, retrofit2.Response<ProductListResponse> response) {
+
+                    if (mProgressDialog.isShowing())
+                        mProgressDialog.dismiss();
+
+                    dialog.dismiss();
+                    Constant.ToastShort(context, new Gson().toJson(response.body().getMsg()).toString());
+                }
+
+                @Override
+                public void onFailure(Call<ProductListResponse> call, Throwable t) {
+                    // Log.e("response", "error ");
+                    if (mProgressDialog.isShowing())
+                        mProgressDialog.dismiss();
+
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void CheckSignup(final Context context, final String from, final String data, final ProgressDialog mProgressDialog) {
+        try {
+
+            LoginRequest loginRequest = new Gson().fromJson(data, LoginRequest.class);
+
+            EndPointInterface git = ApiClient.getClient().create(EndPointInterface.class);
+            //Call<DashboardResponse> call = git.DashboardData("" + AppUrl.BASE_URL_App + "getDashboardDetail/1");
+            Call<ProductListResponse> call = git.CheckSignup("" + Url_Links.Base_Url + "check-unique", loginRequest.getEmail(), loginRequest.getPhone());
+            call.enqueue(new Callback<ProductListResponse>() {
+                @Override
+                public void onResponse(Call<ProductListResponse> call, retrofit2.Response<ProductListResponse> response) {
+
+                    if (mProgressDialog.isShowing())
+                        mProgressDialog.dismiss();
+                    //Log.e("coming", "here : " + new Gson().toJson(response.body().getResult()));
+                    ((Registration) context).CheckValid(from, new Gson().toJson(response.body().getResult()));
+                    Constant.ToastShort(context, new Gson().toJson(response.body().getMsg()).toString());
+                }
+
+                @Override
+                public void onFailure(Call<ProductListResponse> call, Throwable t) {
+                    //Log.e("response", "error ");
+                    if (mProgressDialog.isShowing())
+                        mProgressDialog.dismiss();
+
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void UploadImage(final Context context, final String method, final File file, final ProgressDialog mProgressDialog) {
+        try {
+
+            EndPointInterface git = ApiClient.getClient().create(EndPointInterface.class);
+            RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
+            MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), reqFile);
+
+            Call<ImageUploadResponse> call = git.UploadImage("" + Url_Links.Base_Url + "image-upload", body);
+            call.enqueue(new Callback<ImageUploadResponse>() {
+                @Override
+                public void onResponse(Call<ImageUploadResponse> call, retrofit2.Response<ImageUploadResponse> response) {
+
+                    if (mProgressDialog.isShowing())
+                        mProgressDialog.dismiss();
+                    //Log.e("response", "success " + new Gson().toJson(response.body()).toString());
+                }
+
+                @Override
+                public void onFailure(Call<ImageUploadResponse> call, Throwable t) {
+                    //Log.e("response", "error ");
+                    if (mProgressDialog.isShowing())
+                        mProgressDialog.dismiss();
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void OrderRequest(final Context context, final String method, final String data, final ProgressDialog mProgressDialog) {
+        try {
+            OrderRequest customerListRequest = new Gson().fromJson(data, OrderRequest.class);
+
+            //Log.e("request", "is : " + data);
+
+            EndPointInterface git = ApiClient.getClient().create(EndPointInterface.class);
+            //Call<DashboardResponse> call = git.DashboardData("" + AppUrl.BASE_URL_App + "getDashboardDetail/1");
+            Call<LoginResponse> call = git.OrderRequest("" + Url_Links.Base_Url + "new-order", customerListRequest);
+            call.enqueue(new Callback<LoginResponse>() {
+                @Override
+                public void onResponse(Call<LoginResponse> call, retrofit2.Response<LoginResponse> response) {
+
+                    if (mProgressDialog.isShowing())
+                        mProgressDialog.dismiss();
+
+                    Toast.makeText(context, "Order Submitted Successfully", Toast.LENGTH_SHORT).show();
+
+                    ((Home) context).Dashboard();
+                    //Log.e("response", "success : " + new Gson().toJson(response.body()).toString());
+
+                }
+
+                @Override
+                public void onFailure(Call<LoginResponse> call, Throwable t) {
+                    //Log.e("response", "error ");
+                    if (mProgressDialog.isShowing())
+                        mProgressDialog.dismiss();
+
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static void setLoginData(Context context, String key) {
+        SharedPreferences prefs = context.getSharedPreferences(Url_Links.appPref, context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(Url_Links.loginPref, key);
+        editor.commit();
+    }
+
+    public static String getLoginData(Context context) {
+        SharedPreferences myPrefs = context.getSharedPreferences(Url_Links.appPref, context.MODE_PRIVATE);
+        String key = myPrefs.getString(Url_Links.loginPref, null);
+        return key;
+    }
+
+    public static void setDashboardBrand(Context context, String key) {
+        SharedPreferences prefs = context.getSharedPreferences(Url_Links.appPref, context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(Url_Links.dashboardbrandPref, key);
+        editor.commit();
+    }
+
+    public static String getDashboardBrand(Context context) {
+        SharedPreferences myPrefs = context.getSharedPreferences(Url_Links.appPref, context.MODE_PRIVATE);
+        String key = myPrefs.getString(Url_Links.dashboardbrandPref, null);
+        return key;
+    }
+
+    public static void setProduct(Context context, String key) {
+        SharedPreferences prefs = context.getSharedPreferences(Url_Links.appPref, context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(Url_Links.productPref, key);
+        editor.commit();
+    }
+
+    public static String getProduct(Context context) {
+        SharedPreferences myPrefs = context.getSharedPreferences(Url_Links.appPref, context.MODE_PRIVATE);
+        String key = myPrefs.getString(Url_Links.productPref, null);
+        return key;
+    }
+
+    public static void setCartItem(Context context, String key) {
+        SharedPreferences prefs = context.getSharedPreferences(Url_Links.appPref, context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(Url_Links.cartPref, key);
+        editor.commit();
+    }
+
+    public static String getCartItem(Context context) {
+        SharedPreferences myPrefs = context.getSharedPreferences(Url_Links.appPref, context.MODE_PRIVATE);
+        String key = myPrefs.getString(Url_Links.cartPref, null);
+        return key;
+    }
+
+    public static void setProductToCart(Context context, String key) {
+        SharedPreferences prefs = context.getSharedPreferences(Url_Links.appPref, context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(Url_Links.productToPref, key);
+        editor.commit();
+    }
+
+    public static String getProductToCart(Context context) {
+        SharedPreferences myPrefs = context.getSharedPreferences(Url_Links.appPref, context.MODE_PRIVATE);
+        String key = myPrefs.getString(Url_Links.productToPref, null);
+        return key;
+    }
+
+    public static void setToken(Context context, String key) {
+        SharedPreferences prefs = context.getSharedPreferences(Url_Links.appPref, context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(Url_Links.tokenToPref, key);
+        editor.commit();
+    }
+
+    public static String getDeviceId(Context context) {
+        SharedPreferences myPrefs = context.getSharedPreferences(Url_Links.appPref, context.MODE_PRIVATE);
+        String key = myPrefs.getString(Url_Links.tokenToPref, null);
+        return key;
     }
 }

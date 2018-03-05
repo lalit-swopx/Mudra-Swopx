@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+
+    <RelativeLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/cartContinue"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/_5sdp">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:scrollbars="vertical" />
+
+        <TextView
+            android:id="@+id/noData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="20dp"
+            android:text="No data available !!"
+            android:textColor="@color/colorGray"
+            android:textSize="16sp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@color/colorLightRed"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="1px"
+            android:background="@color/colorWhite">
+
+            <com.mudra.custom_fonts.TypefaceTextView
+                android:id="@+id/continueButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawablePadding="@dimen/_5sdp"
+                android:padding="@dimen/_6sdp"
+                android:text="Shop Continue"
+                android:textColor="@color/colorLightRed"
+                android:textSize="@dimen/_12sdp"
+                app:typeface_custom="CenturyGothicBold.ttf" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@color/colorLightRed"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="1px"
+            android:background="@color/colorWhite">
+
+            <com.mudra.custom_fonts.TypefaceTextView
+                android:id="@+id/submitButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawablePadding="@dimen/_5sdp"
+                android:padding="@dimen/_6sdp"
+                android:text="Confirm Order"
+                android:textColor="@color/colorLightRed"
+                android:textSize="@dimen/_12sdp"
+                app:typeface_custom="CenturyGothicBold.ttf" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/cartContinue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@color/colorLightRed"
+        android:gravity="center"
+        android:visibility="invisible">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="1px"
+            android:background="@color/colorWhite">
+
+            <com.mudra.custom_fonts.TypefaceTextView
+                android:id="@+id/cartConti"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawablePadding="@dimen/_5sdp"
+                android:padding="@dimen/_6sdp"
+                android:text="Shop Continue"
+                android:textColor="@color/colorLightRed"
+                android:textSize="@dimen/_12sdp"
+                app:typeface_custom="CenturyGothicBold.ttf" />
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

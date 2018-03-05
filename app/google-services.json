@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "793602027510",
+    "firebase_url": "https://mudra-ffb05.firebaseio.com",
+    "project_id": "mudra-ffb05",
+    "storage_bucket": "mudra-ffb05.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:793602027510:android:ae87c6b6efb50ae3",
+        "android_client_info": {
+          "package_name": "com.mudra"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "793602027510-04f3n4skog7g9vtdrs6nbk36immv8ncq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mudra",
+            "certificate_hash": "d03d746c70f3c8f221b215dddaca6e065e880c85"
+          }
+        },
+        {
+          "client_id": "793602027510-rc18km7t7shd686eljv8lru2g6qudcog.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5Hlzeoc8sb65W_W3BffLmddk15n4wLHI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "793602027510-rc18km7t7shd686eljv8lru2g6qudcog.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

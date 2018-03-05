@@ -23,26 +23,25 @@ public abstract class Api_CLass {
 
     CustomLoader customLoader;
 
-
     public abstract void response(JSONObject response);
+
     public abstract void error(VolleyError error);
+
     public void postJsonApi(final Context context, String url, final JSONObject headerObj, final boolean isloader) {
-        if(isloader)
-        {
+        if (isloader) {
             loader(context);
         }
 
-        Constant.Log("Response===",""+ headerObj + "URL" + url);
+        Constant.Log("Response===", "" + headerObj + "URL" + url);
         final Request.Priority mPriority = Request.Priority.NORMAL;
         final JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
                 url, headerObj, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
-                Constant.Log("Response===1" ,"" + response);
+                Constant.Log("Response===1", "" + response);
 
-                if(isloader)
-                {
+                if (isloader) {
                     customLoader.dismiss();
                 }
                 response(response);
@@ -53,11 +52,10 @@ public abstract class Api_CLass {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Constant.Sop("Error:" + error.getMessage());
-                if(isloader)
-                {
+                if (isloader) {
                     customLoader.dismiss();
                 }
-                if ( error.getMessage() == null) {
+                if (error.getMessage() == null) {
                     Toast.makeText(context, "Please Try Again", Toast.LENGTH_SHORT).show();
                 }
                 error(error);
@@ -73,22 +71,19 @@ public abstract class Api_CLass {
         AppController.getInstance().addToRequestQueue(jsonObjReq);
     }
 
-    public void getJsonApi(Context context, String countries_url, JSONObject obj, final boolean isloader)
-    {
-        Constant.Sop("Response=="+"URL" + countries_url);
-        if(isloader)
-        {
+    public void getJsonApi(Context context, String countries_url, JSONObject obj, final boolean isloader) {
+        Constant.Sop("Response==" + "URL" + countries_url);
+        if (isloader) {
             loader(context);
         }
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, countries_url,new JSONObject(),
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, countries_url, new JSONObject(),
                 new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.e("getPackage", response.toString());
 
-                        if(isloader)
-                        {
+                        if (isloader) {
                             customLoader.dismiss();
                         }
                         response(response);
@@ -99,8 +94,7 @@ public abstract class Api_CLass {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("getPackage", "Error: " + error.getMessage());
-                if(isloader)
-                {
+                if (isloader) {
                     customLoader.dismiss();
                 }
             }
@@ -110,8 +104,8 @@ public abstract class Api_CLass {
 
         AppController.getInstance().addToRequestQueue(jsonObjReq);
     }
-    public void loader(Context context)
-    {
+
+    public void loader(Context context) {
         customLoader = new CustomLoader(context, android.R.style.Theme_Translucent_NoTitleBar);
         customLoader.show();
         customLoader.setCanceledOnTouchOutside(false);

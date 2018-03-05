@@ -11,7 +11,13 @@
     <declare-styleable name="TypefaceTextView">
         <attr name="typeface_custom" format="string" />
     </declare-styleable>
+
     <style name="DialogTheme" parent="Theme.AppCompat.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
+
+    <style name="FloatingButton" parent="AppTheme">
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
 </resources>

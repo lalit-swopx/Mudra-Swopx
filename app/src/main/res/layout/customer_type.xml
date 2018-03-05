@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBg">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/actionLayout"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_10sdp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/login_logo" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/actionLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="@dimen/_30sdp"
+        android:layout_marginRight="@dimen/_30sdp"
+        android:orientation="vertical">
+
+        <com.mudra.custom_fonts.TypefaceTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:gravity="center"
+            android:padding="@dimen/_12sdp"
+            android:text="I am primarily a..."
+            android:textColor="@color/colorGray"
+            android:textSize="@dimen/_14sdp"
+            app:typeface_custom="CenturyGothicBold.ttf" />
+
+        <com.mudra.custom_fonts.TypefaceTextView
+            android:id="@+id/wholeSale"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:padding="@dimen/_12sdp"
+            android:text="Whole Sale Dealer"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_14sdp"
+            app:typeface_custom="CenturyGothicBold.ttf" />
+
+        <com.mudra.custom_fonts.TypefaceTextView
+            android:id="@+id/hospital"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:padding="@dimen/_12sdp"
+            android:text="Hospital"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_14sdp"
+            app:typeface_custom="CenturyGothicBold.ttf" />
+
+        <com.mudra.custom_fonts.TypefaceTextView
+            android:id="@+id/doctor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:padding="@dimen/_12sdp"
+            android:text="Doctor"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_14sdp"
+            app:typeface_custom="CenturyGothicBold.ttf" />
+
+        <com.mudra.custom_fonts.TypefaceTextView
+            android:id="@+id/mr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:padding="@dimen/_12sdp"
+            android:text="MR"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_14sdp"
+            app:typeface_custom="CenturyGothicBold.ttf" />
+
+    </LinearLayout>
+</RelativeLayout>
